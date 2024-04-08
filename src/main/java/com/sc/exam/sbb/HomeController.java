@@ -6,6 +6,13 @@ import org.springframework.web.bind.annotation.*;
 // @Controller : 스프링부트한테 해당 클래스는 컨트롤러 역할이라고 알려준다.
 @Controller
 public class HomeController {
+
+  private int increaseNo;
+
+  public HomeController() {
+    increaseNo = -1;
+  }
+
   @RequestMapping("/sbb")
   // @ResponseBody
   // 아래 함수의 리턴값을 그대로 브라우저에 표시
@@ -51,5 +58,24 @@ public class HomeController {
         <h1>입력된 나이 : %d</h1>
         <h1>안녕하세요. POST 방식으로 오신걸 환영합니다.</h1>
         """.formatted(age);
+  }
+
+  @GetMapping("/plus")
+  @ResponseBody
+  public int showPlus(@RequestParam(defaultValue = "0") int a, @RequestParam(defaultValue = "0") int b) {
+    return a + b;
+  }
+
+  @GetMapping("/minus")
+  @ResponseBody
+  public int showMinus(@RequestParam(defaultValue = "0") int a, @RequestParam(defaultValue = "0") int b) {
+    return a - b;
+  }
+
+  @GetMapping("/increase")
+  @ResponseBody
+  public int showIncrease() {
+    increaseNo++;
+    return increaseNo;
   }
 }
