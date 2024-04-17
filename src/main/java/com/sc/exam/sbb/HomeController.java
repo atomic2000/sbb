@@ -1,7 +1,11 @@
 package com.sc.exam.sbb;
 
+import org.apache.catalina.util.Introspection;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 // @Controller : 스프링부트한테 해당 클래스는 컨트롤러 역할이라고 알려준다.
 @Controller
@@ -77,5 +81,43 @@ public class HomeController {
   public int showIncrease() {
     increaseNo++;
     return increaseNo;
+  }
+
+  @GetMapping("/gugudan")
+  @ResponseBody
+  public String showGugusan(Integer dan, Integer limit) {
+    if (dan == null) {
+      dan = 9;
+    }
+
+    if (limit == null) {
+      limit = 9;
+    }
+
+    String gugudanFormat = "";
+
+    for(int i = 0; i < limit; i++) {
+      gugudanFormat += "%d * %d = %d\n".formatted(dan, i, dan * i);
+    }
+
+    return gugudanFormat;
+  }
+
+  @GetMapping("/gugudan2")
+  @ResponseBody
+  public String showGugudan2(Integer dan, Integer limit) {
+    if (dan == null) {
+      dan = 9;
+    }
+
+    if (limit == null) {
+      limit = 9;
+    }
+
+    // final 수식어가 붙으면 해당 변수는 상수처리된다.
+    final Integer finalDan = dan;
+    return IntStream.rangeClosed(1, limit)
+        .mapToObj(i -> "%d * %d = %d".formatted(finalDan, i, finalDan * i))
+        .collect(Collectors.joining("<br>"));
   }
 }
