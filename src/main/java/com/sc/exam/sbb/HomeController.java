@@ -1,9 +1,12 @@
 package com.sc.exam.sbb;
 
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import org.apache.catalina.util.Introspection;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.IOException;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
@@ -68,6 +71,15 @@ public class HomeController {
   @ResponseBody
   public int showPlus(@RequestParam(defaultValue = "0") int a, @RequestParam(defaultValue = "0") int b) {
     return a + b;
+  }
+
+  @GetMapping("/plus2")
+  @ResponseBody
+  public void showPlus2(HttpServletRequest req, HttpServletResponse resp) throws IOException {
+    int a = Integer.parseInt(req.getParameter("a"));
+    int b = Integer.parseInt(req.getParameter("b"));
+
+    resp.getWriter().append(a + b + "");
   }
 
   @GetMapping("/minus")
