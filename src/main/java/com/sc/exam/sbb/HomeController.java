@@ -2,6 +2,7 @@ package com.sc.exam.sbb;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 import org.apache.catalina.util.Introspection;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -147,4 +148,28 @@ public class HomeController {
       default -> "모름";
     };
   }
+
+  // 문제 => https://www.youtube.com/watch?v=XHJyphpwZbA
+  // 해답 => https://www.youtube.com/watch?v=9e5_Et2ESdQ
+  @GetMapping("/saveSession/{name}/{value}")
+  @ResponseBody
+  public String saveSession(@PathVariable String name, @PathVariable String value, HttpServletRequest req) {
+    HttpSession session = req.getSession();
+
+    // req => 쿠키 => JSESSIONID => 세션을 얻을 수 있다.
+    session.setAttribute(name, value);
+
+    return "세선 변수의 %s의 값이 %s(으)로 설정되었습니다.".formatted(name,value);
+  }
+
+  @GetMapping("/getSession/{name}")
+  @ResponseBody
+  public String getSession(@PathVariable String name, HttpServletRequest session) {
+    String value = (String) session.getAttribute(name);
+
+    return "세션변수의 %s의 값이 %s입니다.".formatted(name,value);
+  }
+  // 여기까지 위 문제 관련 답변
+
+
 }
