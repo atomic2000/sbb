@@ -3,11 +3,15 @@ package com.sc.exam.sbb;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.Setter;
 import org.apache.catalina.util.Introspection;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
+import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
@@ -171,5 +175,239 @@ public class HomeController {
   }
   // 여기까지 위 문제 관련 답변
 
+  @GetMapping("/home/returnBoolean")
+  @ResponseBody
+  public boolean showReturnBoolean() {
+    return false;
+  }
 
+  @GetMapping("/home/returnDouble")
+  @ResponseBody
+  public double showReturnDouble() {
+    return Math.random();
+  }
+
+  @GetMapping("/home/returnIntArr")
+  @ResponseBody
+  public int[] showReturnIntArr() {
+    int[] arr = new int[] {10, 20, 30};
+    return arr;
+  }
+
+  @GetMapping("/home/returnStringList")
+  @ResponseBody
+  public List<String> showReturnStringList() {
+    List<String> list = new ArrayList<>() {{
+      add("안녕");
+      add("반가워");
+      add("어서와");
+    }};
+
+    /*
+    //위와 같은 코드
+    List<String> list2 = new ArrayList<>();
+    list2.add("안녕");
+    list2.add("반가워");
+    list2.add("어서와");
+    */
+    return list;
+  }
+
+  @GetMapping("/home/returnMap")
+  @ResponseBody
+  public Map<String, Object> showReturnMap() {
+    Map<String, Object> map = new LinkedHashMap<>(){{
+      put("id", 1);
+      put("age", 5);
+      put("name", "푸바오");
+      put("related", new ArrayList<>() {{
+        add(2);
+        add(3);
+        add(4);
+      }});
+    }};
+
+    return map;
+  }
+
+  @GetMapping("/home/returnAnimal")
+  @ResponseBody
+  public Animal showReturnAnimal() {
+    Animal animal = new Animal(1, 3, "포비", new ArrayList<>() {{
+      add(2);
+      add(3);
+      add(4);
+    }});
+
+    System.out.println(animal);
+
+    return animal;
+  }
+
+  @GetMapping("/home/returnAnimal2")
+  @ResponseBody
+  public AnimalV2 showReturnAnimal2() {
+    AnimalV2 animal = new AnimalV2(1,3,"포비", new ArrayList<>() {{
+      add(2);
+      add(3);
+      add(4);
+    }});
+
+    animal.setName(animal.getName() + "V3");
+
+    return animal;
+  }
+
+  @GetMapping("/home/returnAnimalMapList")
+  @ResponseBody
+  public List<Map<String, Object>> showREturnAnimalMapList() {
+    Map<String, Object> animalMap1 = new LinkedHashMap<>() {{
+      put("id", 1);
+      put("age", 5);
+      put("name", "푸바오");
+      put("related", new ArrayList<>() {{
+        add(2);
+        add(3);
+        add(4);
+      }});
+    }};
+
+    Map<String, Object> anumalMap2 = new LinkedHashMap<>() {{
+      put("id", 2);
+      put("age", 8);
+      put("name", "포비");
+      put("related", new ArrayList<>() {{
+        add(5);
+        add(6);
+        add(7);
+      }});
+    }};
+
+    List<Map<String, Object>> list = new ArrayList<>();
+
+    list.add(animalMap1);
+    list.add(anumalMap2);
+
+    return list;
+  }
+
+  @GetMapping("/home/returnAnimalList")
+  @ResponseBody
+  public List<AnimalV2> showReturnAnimalV2List() {
+    AnimalV2 animal1 = new AnimalV2(1,3,"포비", new ArrayList<>() {{
+      add(2);
+      add(3);
+      add(4);
+    }});
+
+    AnimalV2 animal2 = new AnimalV2(2,6,"푸바오", new ArrayList<>() {{
+      add(5);
+      add(6);
+      add(7);
+    }});
+
+    List<AnimalV2> list = new ArrayList<>();
+    list.add(animal1);
+    list.add(animal2);
+
+    return list;
+  }
 }
+
+class Animal {
+  private final int id;
+  private final int age;
+  private String name;
+  private final List<Integer> related;
+
+  public int getId() {
+    return id;
+  }
+
+  public int getAge() {
+    return age;
+  }
+
+  public String getName() {
+    return name;
+  }
+
+  public void setName(String name) {
+    this.name = name;
+  }
+
+  public List<Integer> getRelated() {
+    return related;
+  }
+
+  public Animal(int id, int age, String name, List<Integer> related) {
+    this.id = id;
+    this.age = age;
+    this.name = name;
+    this.related = related;
+  }
+
+  @Override
+  public String toString() {
+    return "Animal{" +
+        "id=" + id +
+        ", age=" + age +
+        ", name='" + name + '\'' +
+        ", related=" + related +
+        '}';
+  }
+}
+
+@AllArgsConstructor
+@Getter
+class AnimalV2 {
+  private final int id;
+  private final int age;
+
+  @Setter
+  private String name;
+  private final List<Integer> related;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
