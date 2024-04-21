@@ -6,6 +6,7 @@ import jakarta.servlet.http.HttpSession;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 import org.apache.catalina.util.Introspection;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -18,11 +19,12 @@ import java.util.stream.IntStream;
 // @Controller : 스프링부트한테 해당 클래스는 컨트롤러 역할이라고 알려준다.
 @Controller
 public class HomeController {
-
   private int increaseNo;
+  private List<Article> articles;
 
   public HomeController() {
     increaseNo = -1;
+    articles = new ArrayList<>();
   }
 
   @RequestMapping("/sbb")
@@ -312,6 +314,23 @@ public class HomeController {
 
     return list;
   }
+
+  @GetMapping("/addArticle")
+  @ResponseBody
+  public String addArticle(String title, String body) {
+    Article article = new Article(title, body);
+    System.out.println(article);
+    articles.add(article);
+
+    return "%d번 게시물이 추가되었습니다.".formatted(article.getId());
+
+  }
+
+  @GetMapping("/article/list")
+  @ResponseBody
+  public List<Article> getArticles(){
+    return articles;
+  }
 }
 
 class Animal {
@@ -367,6 +386,23 @@ class AnimalV2 {
   @Setter
   private String name;
   private final List<Integer> related;
+}
+@AllArgsConstructor
+@Getter
+@ToString
+class Article {
+  private static int lastId;
+  private final int id;
+  private final String title;
+  private final String body;
+
+  static {
+    lastId = 0;
+  }
+
+  public Article(String title, String body) {
+    this(++lastId, title, body);
+  }
 }
 
 
