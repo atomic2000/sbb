@@ -346,6 +346,7 @@ public class HomeController {
     return article;
   }
 
+
   @GetMapping("/article/modify/{id}")
   @ResponseBody
   public String modifyArticle(@PathVariable int id, String title, String body) {
@@ -358,12 +359,12 @@ public class HomeController {
       return "%d번 게시물이 존재하지 않습니다.".formatted(id);
     }
 
-    if (title == null) {
+    if(title == null) {
       return "제목을 입력해주세요.";
     }
 
-    if (body == null) {
-      return "내용을 입려해주세요";
+    if(body == null) {
+      return "내용을 입력해주세요.";
     }
 
     article.setTitle(title);
