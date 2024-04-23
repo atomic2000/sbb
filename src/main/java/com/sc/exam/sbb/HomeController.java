@@ -389,6 +389,19 @@ public class HomeController {
 
     return "%d번 게시물을 삭제하였습니다.".formatted(id);
   }
+
+  @GetMapping("/addPersonOldWay")
+  @ResponseBody
+  public Person addPersonOldWay(int id, int age, String name) {
+    Person p = new Person(id, age, name);
+    return p;
+  }
+
+  @GetMapping("/addPerson")
+  @ResponseBody
+  public Person addPerson(Person p) {
+    return p;
+  }
 }
 
 class Animal {
@@ -460,6 +473,14 @@ class Article {
   public Article(String title, String body) {
     this(++lastId, title, body);
   }
+}
+
+@AllArgsConstructor
+@Getter
+class Person {
+  private int id;
+  private int age;
+  private String name;
 }
 
 
