@@ -3,10 +3,7 @@ package com.sc.exam.sbb;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.*;
 import org.apache.catalina.util.Introspection;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -24,7 +21,10 @@ public class HomeController {
 
   public HomeController() {
     increaseNo = -1;
-    articles = new ArrayList<>();
+    articles = new ArrayList<>() {{
+      add(new Article("제목1", "내용1"));
+      add(new Article("제목2", "내용2"));
+    }};
   }
 
   @RequestMapping("/sbb")
@@ -334,13 +334,42 @@ public class HomeController {
 
   @GetMapping("/article/detail/{id}")
   @ResponseBody
-  public Article getArticle(@PathVariable int id) {
+  public Object getArticle(@PathVariable int id) {
     Article article = articles.stream()
         .filter(a -> a.getId() == id) // 게시물 id와 내가 입력한 id가 일치한지 확인
         .findFirst()
         .orElse(null); // 입력한 번호의 게시물이 없으면 null 반환
 
+    if (article == null) {
+      return "%d번 게시물이 존재하지 않습니다.".formatted(id);
+    }
     return article;
+  }
+
+  @GetMapping("/article/modify/{id}")
+  @ResponseBody
+  public String modifyArticle(@PathVariable int id, String title, String body) {
+    Article article = articles.stream()
+        .filter(a -> a.getId() == id)
+        .findFirst()
+        .orElse(null);
+
+    if (article == null) {
+      return "%d번 게시물이 존재하지 않습니다.".formatted(id);
+    }
+
+    if (title == null) {
+      return "제목을 입력해주세요.";
+    }
+
+    if (body == null) {
+      return "내용을 입려해주세요";
+    }
+
+    article.setTitle(title);
+    article.setBody(body);
+
+    return "%d번 게시물을 수정하였습니다.".formatted(article.getId());
   }
 }
 
@@ -399,13 +428,12 @@ class AnimalV2 {
   private final List<Integer> related;
 }
 @AllArgsConstructor
-@Getter
-@ToString
+@Data
 class Article {
   private static int lastId;
   private final int id;
-  private final String title;
-  private final String body;
+  private String title;
+  private String body;
 
   static {
     lastId = 0;
