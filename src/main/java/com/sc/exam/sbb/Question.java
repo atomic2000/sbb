@@ -1,10 +1,14 @@
 package com.sc.exam.sbb;
 
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.time.LocalDateTime;
 import java.util.List;
 
+@Setter
+@Getter
 @Entity// 아래 Question 클래스는 엔티티 클래스이다.
 // 아래 클래스와 1:1로 매칭되는 테이블이 DB에 없다면, 자동으로 생성되어야 한다.
 @Table(name = "question", schema="sbb")
