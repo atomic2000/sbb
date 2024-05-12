@@ -10,6 +10,7 @@ import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 @SpringBootTest
 class SbbApplicationTests {
@@ -45,7 +46,7 @@ class SbbApplicationTests {
   @Test
   void testJpa2() {
     List<Question> all = questionRepository.findAll();
-    assertEquals(4, all.size()); // 질문의 총개수가 4개가 맞는지.
+    assertEquals(2, all.size()); // 질문의 총개수가 2개가 맞는지.
 
     Question q = all.get(0);
     assertEquals("sbb가 무엇인가요?", q.getSubject());
@@ -54,7 +55,7 @@ class SbbApplicationTests {
   @Test
   void testJpa3() {
     Question q = questionRepository.findBySubject("sbb가 무엇인가요?");
-    assertEquals(1, q.getId()); //해당 서브젝트 내용 id가 2번이 맞는지.
+    assertEquals(1, q.getId()); //해당 서브젝트 내용 id가 1번이 맞는지.
   }
 
   @Test
@@ -72,9 +73,43 @@ class SbbApplicationTests {
 
   @Test
   void testJpa6() {
-    Optional<Question> oq = questionRepository.findById(3);
+    Optional<Question> oq = questionRepository.findById(1);
     Question q = oq.orElse(null);
     q.setSubject("수정된 제목");
     questionRepository.save(q);
   }
+
+  @Test
+  void testJpa7() {
+    assertEquals(2, questionRepository.count());
+    Optional<Question> oq = questionRepository.findById(1);
+    assertTrue(oq.isPresent());
+    Question q = oq.get();
+    questionRepository.delete(q);
+    assertEquals(1, questionRepository.count());
+  }
+
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
