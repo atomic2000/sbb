@@ -77,6 +77,7 @@ class SbbApplicationTests {
     Question q = oq.orElse(null);
     q.setSubject("수정된 제목");
     questionRepository.save(q);
+    // 기존 id가 존재하면 해당 코드는 update를 실행한다.
   }
 
   @Test
