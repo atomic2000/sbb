@@ -44,10 +44,17 @@ class SbbApplicationTests {
   @Test
   void testJpa2() {
     List<Question> all = questionRepository.findAll();
-    assertEquals(4, all.size());
+    assertEquals(4, all.size()); // 질문의 총개수가 4개가 맞는지.
 
     Question q = all.get(0);
     assertEquals("sbb가 무엇인가요?", q.getSubject());
   }
+
+  @Test
+  void testJpa3() {
+    Question q = questionRepository.findBySubject("sbb가 무엇인가요?");
+    assertEquals(2, q.getId()); //해당 서브젝트 내용 id가 2번이 맞는지.
+  }
+
 
 }
