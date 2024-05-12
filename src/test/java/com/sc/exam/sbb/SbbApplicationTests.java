@@ -56,5 +56,9 @@ class SbbApplicationTests {
     assertEquals(2, q.getId()); //해당 서브젝트 내용 id가 2번이 맞는지.
   }
 
-
+  @Test
+  void testJpa4() {
+    Question q = questionRepository.findBySubjectAndContent("sbb가 무엇인가요?", "sbb에 대해서 알고 싶습니다.");
+    assertEquals(1, q.getId());
+  }
 }
