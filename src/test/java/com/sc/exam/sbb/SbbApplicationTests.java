@@ -24,6 +24,7 @@ class SbbApplicationTests {
 
   @Test
   void testJpa0() {
+
     Question q1 = new Question();
     q1.setSubject("sbb가 무엇인가요?");
     q1.setContent("sbb에 대해서 알고 싶습니다.");
@@ -37,6 +38,8 @@ class SbbApplicationTests {
     questionRepository.save(q2);  // 두번째 질문 저장
 
     questionRepository.truncate();
+    questionRepository.resetSequence();
+
   }
 
   @Test

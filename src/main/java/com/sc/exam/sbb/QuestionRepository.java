@@ -11,7 +11,12 @@ public interface QuestionRepository extends JpaRepository<Question, Integer> {
 
   @Transactional
   @Modifying
-  @Query(value = "TRUNCATE TABLE sbb.question", nativeQuery = true)
+  @Query(value = "ALTER SEQUENCE sbb.question_id_seq RESTART WITH 1", nativeQuery = true)
+  void resetSequence();
+
+  @Transactional
+  @Modifying
+  @Query(value = "TRUNCATE TABLE sbb.question cascade", nativeQuery = true)
   void truncate();
 
   Question findBySubject(String subject);
