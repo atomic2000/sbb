@@ -7,7 +7,7 @@ import org.springframework.data.jpa.repository.Query;
 
 import java.util.List;
 
-public interface QuestionRepository extends JpaRepository<Question, Integer> {
+public interface QuestionRepository extends JpaRepository<Question, Integer>, RepositoryUtil {
 
   @Transactional
   @Modifying
