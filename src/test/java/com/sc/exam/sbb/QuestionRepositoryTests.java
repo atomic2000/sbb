@@ -31,6 +31,7 @@ class QuestionRepositoryTests {
   }
 
   public static void clearData(QuestionRepository questionRepository) {
+    questionRepository.deleteAll();
     questionRepository.truncate();
     questionRepository.resetSequence();
   }
