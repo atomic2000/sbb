@@ -1,9 +1,11 @@
 package com.sc.exam.sbb;
 
+import jakarta.transaction.Transactional;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.annotation.Rollback;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -84,15 +86,17 @@ class AnswerRepositoryTests {
   }
 
   @Test
+  @Transactional // 한 묶음으로 연결해주는 어노테이션(데이터베이스 연결을 안끊는다.)
+  @Rollback(false)
   void question으로부터_관련된_답변들_조회() {
     // SELECT * FROM question WHERE id = 1;
     Question q = questionRepository.findById(1).get();
 
     // SELECT * FROM answer WHERE question_id = 1;
-    List<Answer> answerLIST = q.getAnswerList(); // DB 연결이 끊김.
+    List<Answer> answerList = q.getAnswerList();
 
-    assertThat(answerLIST.size()).isEqualTo(2);
-    assertThat(answerLIST.get(0).getContent()).isEqualTo("sbb는 질문답변 게시판입니다.");
+    assertThat(answerList.size()).isEqualTo(2);
+    assertThat(answerList.get(0).getContent()).isEqualTo("sbb는 질문답변 게시판입니다.");
   }
 }
 
