@@ -1,0 +1,5 @@
+DROP SCHEMA IF EXISTS sbb CASCADE;
+CREATE SCHEMA sbb;
+
+SELECT * FROM sbb.question;
+SELECT * FROM sbb.answer;
