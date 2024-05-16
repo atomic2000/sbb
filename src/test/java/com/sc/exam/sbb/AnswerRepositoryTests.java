@@ -6,8 +6,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.InstanceOfAssertFactories.LIST;
 
 @SpringBootTest
 class AnswerRepositoryTests {
@@ -73,10 +75,58 @@ class AnswerRepositoryTests {
   }
 
   @Test
+  // 답변을 통해서 질문을 조회
   void 관련된_question_조회() {
     Answer a = answerRepository.findById(1).get();
     Question q = a.getQuestion();
 
     assertThat(q.getId()).isEqualTo(1);
   }
+
+  @Test
+  void question으로부터_관련된_답변들_조회() {
+    // SELECT * FROM question WHERE id = 1;
+    Question q = questionRepository.findById(1).get();
+
+    // SELECT * FROM answer WHERE question_id = 1;
+    List<Answer> answerLIST = q.getAnswerList(); // DB 연결이 끊김.
+
+    assertThat(answerLIST.size()).isEqualTo(2);
+    assertThat(answerLIST.get(0).getContent()).isEqualTo("sbb는 질문답변 게시판입니다.");
+  }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
