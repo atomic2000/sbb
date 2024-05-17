@@ -43,38 +43,39 @@ class AnswerRepositoryTests {
 
     Answer a1 = new Answer();
     a1.setContent("sbb는 질문답변 게시판입니다.");
-    a1.setQuestion(q);
     a1.setCreateDate(LocalDateTime.now());
+    q.addAnswer(a1);
     answerRepository.save(a1);
-
-    q.getAnswerList().add(a1);
 
     Answer a2 = new Answer();
     a2.setContent("sbb에서는 주로 스프링관련 내용을 다룹니다.");
-    a2.setQuestion(q);
     a2.setCreateDate(LocalDateTime.now());
+    q.addAnswer(a2);
     answerRepository.save(a2);
-
-    q.getAnswerList().add(a2);
   }
+
   @Test
+  @Transactional
+  @Rollback(value = false)
   void 저장() {
     Question q = questionRepository.findById(1).get();
 
     Answer a1 = new Answer();
     a1.setContent("sbb는 질문답변 게시판입니다.");
-    a1.setQuestion(q);  // 어떤 질문의 답변인지 알기위해서 Question 객체가 필요하다.
     a1.setCreateDate(LocalDateTime.now());
+    q.addAnswer(a1);
     answerRepository.save(a1);
 
     Answer a2 = new Answer();
     a2.setContent("sbb에서는 주로 스프링관련 내용을 다룹니다.");
-    a2.setQuestion(q);  // 어떤 질문의 답변인지 알기위해서 Question 객체가 필요하다.
     a2.setCreateDate(LocalDateTime.now());
+    q.addAnswer(a2);
     answerRepository.save(a2);
   }
 
   @Test
+  @Transactional
+  @Rollback(value = false)
   void 조회() {
     Answer a = answerRepository.findById(1).get();
     assertThat(a.getContent()).isEqualTo("sbb는 질문답변 게시판입니다.");
