@@ -26,14 +26,19 @@ class QuestionRepositoryTests {
   }
 
   private void clearData() {
-    questionRepository.truncate();
-    questionRepository.resetSequence();
+//    questionRepository.truncate();
+//    questionRepository.resetSequence();
+    clearData(questionRepository);
   }
 
   public static void clearData(QuestionRepository questionRepository) {
     questionRepository.deleteAll();
     questionRepository.truncate();
     questionRepository.resetSequence();
+  }
+
+  public void createSampleData() {
+    lastSampleDataId = createSampleData(questionRepository);
   }
 
   public static int createSampleData(QuestionRepository questionRepository) {
@@ -50,10 +55,6 @@ class QuestionRepositoryTests {
     questionRepository.save(q2);  // 두번째 질문 저장
 
     return q2.getId();
-  }
-
-  public void createSampleData() {
-    lastSampleDataId = createSampleData(questionRepository);
   }
 
   @Test
