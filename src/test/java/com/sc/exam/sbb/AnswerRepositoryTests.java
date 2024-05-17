@@ -47,11 +47,15 @@ class AnswerRepositoryTests {
     a1.setCreateDate(LocalDateTime.now());
     answerRepository.save(a1);
 
+    q.getAnswerList().add(a1);
+
     Answer a2 = new Answer();
     a2.setContent("sbb에서는 주로 스프링관련 내용을 다룹니다.");
     a2.setQuestion(q);
     a2.setCreateDate(LocalDateTime.now());
     answerRepository.save(a2);
+
+    q.getAnswerList().add(a2);
   }
   @Test
   void 저장() {
@@ -92,10 +96,7 @@ class AnswerRepositoryTests {
     // SELECT * FROM question WHERE id = 1;
     // 관련 답변이 하나도 없는 상태에서 쿼리 발생
     Question q = questionRepository.findById(1).get();
-    q = questionRepository.findById(1).get();
-
-    System.out.println("q 2nd : " + q);
-    // 여기서 DB 연결이 끊겨서 오류 발생됨
+    // 여기서 DB 연결이 끊겨서 오류 발생됐었는데 50번줄에 q.getAnswerList().add(a1); 로 정상 작동됨.
 
     // SELECT * FROM answer WHERE question_id = 1;
     List<Answer> answerList = q.getAnswerList();
