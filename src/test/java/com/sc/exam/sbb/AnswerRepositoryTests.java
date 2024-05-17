@@ -90,7 +90,12 @@ class AnswerRepositoryTests {
   @Rollback(false)
   void question으로부터_관련된_답변들_조회() {
     // SELECT * FROM question WHERE id = 1;
+    // 관련 답변이 하나도 없는 상태에서 쿼리 발생
     Question q = questionRepository.findById(1).get();
+    q = questionRepository.findById(1).get();
+
+    System.out.println("q 2nd : " + q);
+    // 여기서 DB 연결이 끊겨서 오류 발생됨
 
     // SELECT * FROM answer WHERE question_id = 1;
     List<Answer> answerList = q.getAnswerList();
