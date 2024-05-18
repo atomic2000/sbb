@@ -26,7 +26,7 @@ public class Question {
 
   private LocalDateTime createDate; // Datetime
 
-  @OneToMany(mappedBy = "question", cascade = CascadeType.REMOVE)
+  @OneToMany(mappedBy = "question", cascade = {CascadeType.REMOVE, CascadeType.ALL})
   private List<Answer> answerList = new ArrayList<>();
 
   public void addAnswer(Answer answer) {
