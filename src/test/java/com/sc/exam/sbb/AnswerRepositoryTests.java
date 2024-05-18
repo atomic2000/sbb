@@ -1,5 +1,9 @@
 package com.sc.exam.sbb;
 
+import com.sc.exam.sbb.answer.Answer;
+import com.sc.exam.sbb.answer.AnswerRepository;
+import com.sc.exam.sbb.question.Question;
+import com.sc.exam.sbb.question.QuestionRepository;
 import jakarta.transaction.Transactional;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -11,7 +15,6 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.assertj.core.api.InstanceOfAssertFactories.LIST;
 
 @SpringBootTest
 class AnswerRepositoryTests {

@@ -1,5 +1,6 @@
-package com.sc.exam.sbb;
+package com.sc.exam.sbb.answer;
 
+import com.sc.exam.sbb.question.Question;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;

@@ -1,5 +1,6 @@
-package com.sc.exam.sbb;
+package com.sc.exam.sbb.question;
 
+import com.sc.exam.sbb.RepositoryUtil;
 import jakarta.transaction.Transactional;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
