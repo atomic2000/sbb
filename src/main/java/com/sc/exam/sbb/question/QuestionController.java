@@ -1,13 +1,9 @@
-package com.sc.exam.sbb;
+package com.sc.exam.sbb.question;
 
-import com.sc.exam.sbb.question.Question;
-import com.sc.exam.sbb.question.QuestionRepository;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.List;
 
