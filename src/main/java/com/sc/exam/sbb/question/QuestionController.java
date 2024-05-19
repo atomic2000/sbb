@@ -5,11 +5,11 @@ import org.springframework.ui.Model;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.util.List;
 
-@RestController("/question")
+@RequestMapping("/question")
 @Controller
 @RequiredArgsConstructor // 생성자 주입
 // 컨트롤러는 Respository가 있는지 몰라야 한다.
