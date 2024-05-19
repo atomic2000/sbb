@@ -1,0 +1,8 @@
+textarea {
+    width: 100%; /* 너비 100% */
+}
+
+input[type="submit"], /* 태그가 input이고 type이라는 속성을 가지는데, 해당 type의 속성값이 submit인 녀석을 선택 */
+button[type="submit"] { /* 태그가 button이고 type이라는 속성을 가지는데, 해당 type의 속성값이 submit인 녀석을 선택 */
+    margin-top: 10px; /* 상단 여백 10px */
+}
