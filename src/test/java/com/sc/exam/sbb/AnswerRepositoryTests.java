@@ -42,7 +42,7 @@ class AnswerRepositoryTests {
 
     QuestionRepositoryTests.createSampleData(questionRepository);
 
-    Question q = questionRepository.findById(1).get();
+    Question q = questionRepository.findById(1L).get();
 
     Answer a1 = new Answer();
     a1.setContent("sbb는 질문답변 게시판입니다.");
@@ -63,7 +63,7 @@ class AnswerRepositoryTests {
   @Transactional
   @Rollback(value = false)
   void 저장() {
-    Question q = questionRepository.findById(2).get();
+    Question q = questionRepository.findById(2L).get();
 
     Answer a1 = new Answer();
     a1.setContent("네 자동으로 생성됩니다.");
@@ -82,7 +82,7 @@ class AnswerRepositoryTests {
   @Transactional
   @Rollback(value = false)
   void 조회() {
-    Answer a = answerRepository.findById(1).get();
+    Answer a = answerRepository.findById(1L).get();
     assertThat(a.getContent()).isEqualTo("sbb는 질문답변 게시판입니다.");
   }
 
@@ -91,7 +91,7 @@ class AnswerRepositoryTests {
   @Rollback(value = false)
   // 답변을 통해서 질문을 조회
   void 관련된_question_조회() {
-    Answer a = answerRepository.findById(1).get();
+    Answer a = answerRepository.findById(1L).get();
     Question q = a.getQuestion();
 
     assertThat(q.getId()).isEqualTo(1);
@@ -103,7 +103,7 @@ class AnswerRepositoryTests {
   void question으로부터_관련된_답변들_조회() {
     // SELECT * FROM question WHERE id = 1;
     // 관련 답변이 하나도 없는 상태에서 쿼리 발생
-    Question q = questionRepository.findById(1).get();
+    Question q = questionRepository.findById(1L).get();
     // 여기서 DB 연결이 끊겨서 오류 발생됐었는데 50번줄에 q.getAnswerList().add(a1); 로 정상 작동됨.
 
     // SELECT * FROM answer WHERE question_id = 1;

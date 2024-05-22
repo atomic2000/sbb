@@ -97,7 +97,7 @@ class SbbApplicationTests {
 
   @Test
   void testJpa6() {
-    Optional<Question> oq = questionRepository.findById(1);
+    Optional<Question> oq = questionRepository.findById(1L);
     Question q = oq.orElse(null);
     q.setSubject("수정된 제목");
     questionRepository.save(q);
@@ -107,7 +107,7 @@ class SbbApplicationTests {
   @Test
   void testJpa7() {
     assertEquals(2, questionRepository.count());
-    Optional<Question> oq = questionRepository.findById(1);
+    Optional<Question> oq = questionRepository.findById(1L);
     assertTrue(oq.isPresent());
     Question q = oq.get();
     questionRepository.delete(q);

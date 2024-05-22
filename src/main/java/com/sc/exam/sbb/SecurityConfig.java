@@ -21,8 +21,7 @@ public class SecurityConfig {
             .ignoringRequestMatchers(new AntPathRequestMatcher("/h2-console/**")))
         .headers((headers) -> headers
             .addHeaderWriter(new XFrameOptionsHeaderWriter(
-                XFrameOptionsHeaderWriter.XFrameOptionsMode.SAMEORIGIN)))
-    ;
+                XFrameOptionsHeaderWriter.XFrameOptionsMode.SAMEORIGIN)));
     return http.build();
   }
 }

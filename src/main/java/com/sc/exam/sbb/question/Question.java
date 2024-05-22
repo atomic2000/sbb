@@ -17,7 +17,7 @@ import java.util.List;
 public class Question {
   @Id // primary key
   @GeneratedValue(strategy = GenerationType.IDENTITY) // auto_increment
-  private Integer id;
+  private Long id;
 
   @Column(length = 200) // 얘의 너비를 늘리고 싶다. varchar(200)
   private String subject;
