@@ -9,6 +9,7 @@ import lombok.Setter;
 @Setter
 @Entity
 @NoArgsConstructor
+@Table(name = "siteuser", schema="sbb")
 public class SiteUser {
 
   @Id

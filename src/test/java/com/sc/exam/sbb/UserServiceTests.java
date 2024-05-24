@@ -46,7 +46,7 @@ public class UserServiceTests {
   private void clearData(UserRepository userRepository, AnswerRepository answerRepository, QuestionRepository questionRepository) {
     AnswerRepositoryTests.clearData(answerRepository, questionRepository);
     userRepository.deleteAll();
-    userRepository.truncateTable();
+    userRepository.truncate();
   }
 
   @Test
