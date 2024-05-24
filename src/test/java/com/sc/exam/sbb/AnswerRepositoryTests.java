@@ -5,6 +5,7 @@ import com.sc.exam.sbb.answer.AnswerRepository;
 import com.sc.exam.sbb.question.Question;
 import com.sc.exam.sbb.question.QuestionRepository;
 import com.sc.exam.sbb.user.SiteUser;
+import com.sc.exam.sbb.user.UserRepository;
 import jakarta.transaction.Transactional;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -21,6 +22,9 @@ import static org.assertj.core.api.Assertions.assertThat;
 class AnswerRepositoryTests {
 
   @Autowired
+  private UserRepository userRepository;
+
+  @Autowired
   private QuestionRepository questionRepository;
 
   @Autowired
@@ -33,13 +37,10 @@ class AnswerRepositoryTests {
   }
 
   private void clearData() {
-    clearData(answerRepository, questionRepository);
+    clearData(userRepository, answerRepository, questionRepository);
   }
-  public static void clearData(AnswerRepository answerRepository, QuestionRepository questionRepository) {
-    QuestionRepositoryTests.clearData(questionRepository);
-    answerRepository.deleteAll();
-    answerRepository.truncate();
-    answerRepository.resetSequence();
+  public static void clearData(UserRepository userRepository, AnswerRepository answerRepository, QuestionRepository questionRepository) {
+    UserServiceTests.clearData(userRepository, answerRepository, questionRepository);
   }
 
   private void createSampleData() {

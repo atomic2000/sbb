@@ -43,12 +43,19 @@ public class UserServiceTests {
     clearData(userRepository, answerRepository, questionRepository);
   }
 
-  private void clearData(UserRepository userRepository, AnswerRepository answerRepository, QuestionRepository questionRepository) {
-    AnswerRepositoryTests.clearData(answerRepository, questionRepository);
-    userRepository.deleteAll();
-    userRepository.truncate();
-  }
+  // 삭제 순서 : 답변 -> 질문 -> 회원
+  public static void clearData(UserRepository userRepository,
+                               AnswerRepository answerRepository,
+                               QuestionRepository questionRepository) {
+    answerRepository.deleteAll();
+    answerRepository.truncateTable();
 
+    questionRepository.deleteAll();
+    questionRepository.truncateTable();
+
+    userRepository.deleteAll();
+    userRepository.truncateTable();
+  }
   @Test
   @DisplayName("회원가입이 가능하다.")
   public void t1() {
