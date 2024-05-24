@@ -4,6 +4,7 @@ import com.sc.exam.sbb.answer.Answer;
 import com.sc.exam.sbb.answer.AnswerRepository;
 import com.sc.exam.sbb.question.Question;
 import com.sc.exam.sbb.question.QuestionRepository;
+import com.sc.exam.sbb.user.SiteUser;
 import jakarta.transaction.Transactional;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -50,12 +51,14 @@ class AnswerRepositoryTests {
     Answer a1 = new Answer();
     a1.setContent("sbb는 질문답변 게시판입니다.");
     a1.setCreateDate(LocalDateTime.now());
+    a1.setAuthor(new SiteUser(2L));
     q.addAnswer(a1);
     answerRepository.save(a1);
 
     Answer a2 = new Answer();
     a2.setContent("sbb에서는 주로 스프링관련 내용을 다룹니다.");
     a2.setCreateDate(LocalDateTime.now());
+    a2.setAuthor(new SiteUser(2L));
     q.addAnswer(a2);
     answerRepository.save(a2);
 
